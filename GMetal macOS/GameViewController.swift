@@ -38,6 +38,7 @@ class GameViewController: NSViewController {
 
         renderer = newRenderer
 
+        mtkView.clearColor = MTLClearColorMake(1, 0.5, 0.5, 1);
         renderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
 
         mtkView.delegate = renderer

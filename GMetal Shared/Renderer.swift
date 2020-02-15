@@ -152,11 +152,12 @@ class Renderer: NSObject, MTKViewDelegate {
         
         let metalAllocator = MTKMeshBufferAllocator(device: device)
         
-        let mdlMesh = MDLMesh.newBox(withDimensions: SIMD3<Float>(4, 4, 4),
-                                     segments: SIMD3<UInt32>(2, 2, 2),
-                                     geometryType: MDLGeometryType.triangles,
-                                     inwardNormals:false,
-                                     allocator: metalAllocator)
+        let mdlMesh = MDLMesh(sphereWithExtent: SIMD3<Float>(4,4,4), segments: SIMD2<UInt32>(50, 50), inwardNormals: false, geometryType: .triangles, allocator: metalAllocator)
+//        let mdlMesh = MDLMesh.newBox(withDimensions: SIMD3<Float>(4, 4, 4),
+//                                     segments: SIMD3<UInt32>(2, 2, 2),
+//                                     geometryType: MDLGeometryType.triangles,
+//                                     inwardNormals:false,
+//                                     allocator: metalAllocator)
         
         let mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(mtlVertexDescriptor)
         
@@ -204,9 +205,10 @@ class Renderer: NSObject, MTKViewDelegate {
         
         uniforms[0].projectionMatrix = projectionMatrix
         
-        let rotationAxis = SIMD3<Float>(1, 1, 0)
-        let modelMatrix = matrix4x4_rotation(radians: rotation, axis: rotationAxis)
-        let viewMatrix = matrix4x4_translation(0.0, 0.0, -8.0)
+        let rotationAxis = SIMD3<Float>(0, 1, 0)
+//        let modelMatrix = matrix_float4x4.init(1.0)
+        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(5), axis: rotationAxis)
+        let viewMatrix = matrix4x4_translation(0.0, 0.0, 2.0)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
         rotation += 0.01
     }
@@ -230,6 +232,7 @@ class Renderer: NSObject, MTKViewDelegate {
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             ///   holding onto the drawable and blocking the display pipeline any longer than necessary
             let renderPassDescriptor = view.currentRenderPassDescriptor
+            renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColorMake(0.5, 1, 0.5, 0.5)
             
             if let renderPassDescriptor = renderPassDescriptor, let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
                 
@@ -238,7 +241,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 
                 renderEncoder.pushDebugGroup("Draw Box")
                 
-                renderEncoder.setCullMode(.back)
+                renderEncoder.setCullMode(.none)
                 
                 renderEncoder.setFrontFacing(.counterClockwise)
                 
@@ -261,6 +264,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 }
                 
                 renderEncoder.setFragmentTexture(colorMap, index: TextureIndex.color.rawValue)
+                renderEncoder.setTriangleFillMode(.lines)
                 
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
@@ -288,7 +292,8 @@ class Renderer: NSObject, MTKViewDelegate {
         /// Respond to drawable size or orientation changes here
         
         let aspect = Float(size.width) / Float(size.height)
-        projectionMatrix = matrix_perspective_right_hand(fovyRadians: radians_from_degrees(65), aspectRatio:aspect, nearZ: 0.1, farZ: 100.0)
+//        projectionMatrix = matrix_perspective_right_hand(fovyRadians: radians_from_degrees(70), aspectRatio:aspect, nearZ: 0.1, farZ: 100.0)
+        projectionMatrix = matrix_float4x4_ortho(left: -4, right: 4, bottom: -4, top: 4, near: 4, far: 12)
     }
 }
 
@@ -324,4 +329,21 @@ func matrix_perspective_right_hand(fovyRadians fovy: Float, aspectRatio: Float, 
 
 func radians_from_degrees(_ degrees: Float) -> Float {
     return (degrees / 180) * .pi
+}
+
+func matrix_float4x4_ortho(left: Float, right: Float, bottom: Float, top: Float, near: Float, far: Float) -> matrix_float4x4 {
+    let ral = right + left
+    let rsl = right - left
+    let tab = top + bottom
+    let tsb = top - bottom
+    let fan = far + near
+    let fsn = far - near
+    
+    let P = vector_float4( 2.0 / rsl, 0, 0, 0 )
+    let Q = vector_float4( 0.0, 2.0 / tsb, 0.0, 0.0 )
+    let R = vector_float4( 0.0, 0.0, 1.0 / fsn, 0.0 )
+    let S = vector_float4( -ral / rsl, -tab / tsb, -near / fsn, 1.0 )
+    
+    let mat = matrix_float4x4(columns:( P, Q, R, S ))
+    return mat
 }
