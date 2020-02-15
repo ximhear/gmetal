@@ -208,7 +208,7 @@ class Renderer: NSObject, MTKViewDelegate {
         let rotationAxis = SIMD3<Float>(0, 1, 0)
 //        let modelMatrix = matrix_float4x4.init(1.0)
         let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(5), axis: rotationAxis)
-        let viewMatrix = matrix4x4_translation(0.0, 0.0, 2.0)
+        let viewMatrix = matrix4x4_translation(0.0, 0.0, 8.0)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
         rotation += 0.01
     }
@@ -291,9 +291,19 @@ class Renderer: NSObject, MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
         /// Respond to drawable size or orientation changes here
         
-        let aspect = Float(size.width) / Float(size.height)
-//        projectionMatrix = matrix_perspective_right_hand(fovyRadians: radians_from_degrees(70), aspectRatio:aspect, nearZ: 0.1, farZ: 100.0)
-        projectionMatrix = matrix_float4x4_ortho(left: -4, right: 4, bottom: -4, top: 4, near: 4, far: 12)
+        var aspect = Float(size.width) / Float(size.height)
+        print("aspect : \(aspect)")
+        if (aspect == 0) {
+            aspect = 0.00001
+        }
+        projectionMatrix = matrix_perspective_left_hand(fovyRadians: radians_from_degrees(70), aspectRatio:aspect, nearZ: 0.1, farZ: 8.0)
+        
+//        if (aspect > 1) {
+//            projectionMatrix = matrix_float4x4_ortho(left: -4*aspect, right: 4*aspect, bottom: -4, top: 4, near: 4, far: 12)
+//        }
+//        else {
+//            projectionMatrix = matrix_float4x4_ortho(left: -4, right: 4, bottom: -4/aspect, top: 4/aspect, near: 4, far: 12)
+//        }
     }
 }
 
@@ -315,6 +325,16 @@ func matrix4x4_translation(_ translationX: Float, _ translationY: Float, _ trans
                                          vector_float4(0, 1, 0, 0),
                                          vector_float4(0, 0, 1, 0),
                                          vector_float4(translationX, translationY, translationZ, 1)))
+}
+
+func matrix_perspective_left_hand(fovyRadians fovy: Float, aspectRatio: Float, nearZ: Float, farZ: Float) -> matrix_float4x4 {
+    let ys = 1 / tanf(fovy * 0.5)
+    let xs = ys / aspectRatio
+    let zs = farZ / (nearZ - farZ)
+    return matrix_float4x4.init(columns:(vector_float4(xs,  0, 0,   0),
+                                         vector_float4( 0, ys, 0,   0),
+                                         vector_float4( 0,  0, -zs, 1),
+                                         vector_float4( 0,  0, zs * nearZ, 0)))
 }
 
 func matrix_perspective_right_hand(fovyRadians fovy: Float, aspectRatio: Float, nearZ: Float, farZ: Float) -> matrix_float4x4 {
