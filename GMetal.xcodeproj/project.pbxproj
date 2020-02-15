@@ -1,0 +1,496 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EC1EB69723F845C500BBBB00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB69623F845C500BBBB00 /* AppDelegate.swift */; };
+		EC1EB69923F845C500BBBB00 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB69823F845C500BBBB00 /* GameViewController.swift */; };
+		EC1EB69C23F845C500BBBB00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB69A23F845C500BBBB00 /* Main.storyboard */; };
+		EC1EB69F23F845C500BBBB00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB69D23F845C500BBBB00 /* LaunchScreen.storyboard */; };
+		EC1EB6A823F845C500BBBB00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB6A723F845C500BBBB00 /* AppDelegate.swift */; };
+		EC1EB6AA23F845C500BBBB00 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB6A923F845C500BBBB00 /* GameViewController.swift */; };
+		EC1EB6AD23F845C500BBBB00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB6AB23F845C500BBBB00 /* Main.storyboard */; };
+		EC1EB6AF23F845C500BBBB00 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB68B23F845C400BBBB00 /* Shaders.metal */; };
+		EC1EB6B023F845C500BBBB00 /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB68B23F845C400BBBB00 /* Shaders.metal */; };
+		EC1EB6B123F845C500BBBB00 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB68C23F845C400BBBB00 /* Renderer.swift */; };
+		EC1EB6B223F845C500BBBB00 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB68C23F845C400BBBB00 /* Renderer.swift */; };
+		EC1EB6B323F845C500BBBB00 /* ShaderTypes.h in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */; };
+		EC1EB6B423F845C500BBBB00 /* ShaderTypes.h in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */; };
+		EC1EB6B523F845C500BBBB00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68E23F845C500BBBB00 /* Assets.xcassets */; };
+		EC1EB6B623F845C500BBBB00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68E23F845C500BBBB00 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EC1EB68B23F845C400BBBB00 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
+		EC1EB68C23F845C400BBBB00 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
+		EC1EB68E23F845C500BBBB00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		EC1EB69323F845C500BBBB00 /* GMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC1EB69623F845C500BBBB00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EC1EB69823F845C500BBBB00 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		EC1EB69B23F845C500BBBB00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC1EB69E23F845C500BBBB00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		EC1EB6A023F845C500BBBB00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC1EB6A523F845C500BBBB00 /* GMetal.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GMetal.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC1EB6A723F845C500BBBB00 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		EC1EB6A923F845C500BBBB00 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
+		EC1EB6AC23F845C500BBBB00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		EC1EB6AE23F845C500BBBB00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EC1EB69023F845C500BBBB00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC1EB6A223F845C500BBBB00 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EC1EB68523F845C400BBBB00 = {
+			isa = PBXGroup;
+			children = (
+				EC1EB68A23F845C400BBBB00 /* GMetal Shared */,
+				EC1EB69523F845C500BBBB00 /* GMetal iOS */,
+				EC1EB6A623F845C500BBBB00 /* GMetal macOS */,
+				EC1EB69423F845C500BBBB00 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EC1EB68A23F845C400BBBB00 /* GMetal Shared */ = {
+			isa = PBXGroup;
+			children = (
+				EC1EB68B23F845C400BBBB00 /* Shaders.metal */,
+				EC1EB68C23F845C400BBBB00 /* Renderer.swift */,
+				EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */,
+				EC1EB68E23F845C500BBBB00 /* Assets.xcassets */,
+			);
+			path = "GMetal Shared";
+			sourceTree = "<group>";
+		};
+		EC1EB69423F845C500BBBB00 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EC1EB69323F845C500BBBB00 /* GMetal.app */,
+				EC1EB6A523F845C500BBBB00 /* GMetal.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EC1EB69523F845C500BBBB00 /* GMetal iOS */ = {
+			isa = PBXGroup;
+			children = (
+				EC1EB69623F845C500BBBB00 /* AppDelegate.swift */,
+				EC1EB69823F845C500BBBB00 /* GameViewController.swift */,
+				EC1EB69A23F845C500BBBB00 /* Main.storyboard */,
+				EC1EB69D23F845C500BBBB00 /* LaunchScreen.storyboard */,
+				EC1EB6A023F845C500BBBB00 /* Info.plist */,
+			);
+			path = "GMetal iOS";
+			sourceTree = "<group>";
+		};
+		EC1EB6A623F845C500BBBB00 /* GMetal macOS */ = {
+			isa = PBXGroup;
+			children = (
+				EC1EB6A723F845C500BBBB00 /* AppDelegate.swift */,
+				EC1EB6A923F845C500BBBB00 /* GameViewController.swift */,
+				EC1EB6AB23F845C500BBBB00 /* Main.storyboard */,
+				EC1EB6AE23F845C500BBBB00 /* Info.plist */,
+			);
+			path = "GMetal macOS";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EC1EB69223F845C500BBBB00 /* GMetal iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC1EB6B923F845C500BBBB00 /* Build configuration list for PBXNativeTarget "GMetal iOS" */;
+			buildPhases = (
+				EC1EB68F23F845C500BBBB00 /* Sources */,
+				EC1EB69023F845C500BBBB00 /* Frameworks */,
+				EC1EB69123F845C500BBBB00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GMetal iOS";
+			productName = "GMetal iOS";
+			productReference = EC1EB69323F845C500BBBB00 /* GMetal.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EC1EB6A423F845C500BBBB00 /* GMetal macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EC1EB6BC23F845C500BBBB00 /* Build configuration list for PBXNativeTarget "GMetal macOS" */;
+			buildPhases = (
+				EC1EB6A123F845C500BBBB00 /* Sources */,
+				EC1EB6A223F845C500BBBB00 /* Frameworks */,
+				EC1EB6A323F845C500BBBB00 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GMetal macOS";
+			productName = "GMetal macOS";
+			productReference = EC1EB6A523F845C500BBBB00 /* GMetal.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EC1EB68623F845C400BBBB00 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "LEE CHUL HYUN";
+				TargetAttributes = {
+					EC1EB69223F845C500BBBB00 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+					EC1EB6A423F845C500BBBB00 = {
+						CreatedOnToolsVersion = 11.3.1;
+					};
+				};
+			};
+			buildConfigurationList = EC1EB68923F845C400BBBB00 /* Build configuration list for PBXProject "GMetal" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EC1EB68523F845C400BBBB00;
+			productRefGroup = EC1EB69423F845C500BBBB00 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EC1EB69223F845C500BBBB00 /* GMetal iOS */,
+				EC1EB6A423F845C500BBBB00 /* GMetal macOS */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EC1EB69123F845C500BBBB00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC1EB6B323F845C500BBBB00 /* ShaderTypes.h in Resources */,
+				EC1EB69C23F845C500BBBB00 /* Main.storyboard in Resources */,
+				EC1EB6B523F845C500BBBB00 /* Assets.xcassets in Resources */,
+				EC1EB69F23F845C500BBBB00 /* LaunchScreen.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC1EB6A323F845C500BBBB00 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC1EB6AD23F845C500BBBB00 /* Main.storyboard in Resources */,
+				EC1EB6B623F845C500BBBB00 /* Assets.xcassets in Resources */,
+				EC1EB6B423F845C500BBBB00 /* ShaderTypes.h in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EC1EB68F23F845C500BBBB00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC1EB6B123F845C500BBBB00 /* Renderer.swift in Sources */,
+				EC1EB6AF23F845C500BBBB00 /* Shaders.metal in Sources */,
+				EC1EB69923F845C500BBBB00 /* GameViewController.swift in Sources */,
+				EC1EB69723F845C500BBBB00 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EC1EB6A123F845C500BBBB00 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EC1EB6B223F845C500BBBB00 /* Renderer.swift in Sources */,
+				EC1EB6B023F845C500BBBB00 /* Shaders.metal in Sources */,
+				EC1EB6AA23F845C500BBBB00 /* GameViewController.swift in Sources */,
+				EC1EB6A823F845C500BBBB00 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		EC1EB69A23F845C500BBBB00 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC1EB69B23F845C500BBBB00 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		EC1EB69D23F845C500BBBB00 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC1EB69E23F845C500BBBB00 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		EC1EB6AB23F845C500BBBB00 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				EC1EB6AC23F845C500BBBB00 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		EC1EB6B723F845C500BBBB00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		EC1EB6B823F845C500BBBB00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+			};
+			name = Release;
+		};
+		EC1EB6BA23F845C500BBBB00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WD3LPJ2STX;
+				INFOPLIST_FILE = "GMetal iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.g.GMetal;
+				PRODUCT_NAME = GMetal;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "GMetal Shared/ShaderTypes.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EC1EB6BB23F845C500BBBB00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WD3LPJ2STX;
+				INFOPLIST_FILE = "GMetal iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.g.GMetal;
+				PRODUCT_NAME = GMetal;
+				SDKROOT = iphoneos;
+				SWIFT_OBJC_BRIDGING_HEADER = "GMetal Shared/ShaderTypes.h";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		EC1EB6BD23F845C500BBBB00 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = WD3LPJ2STX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "GMetal macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.g.GMetal;
+				PRODUCT_NAME = GMetal;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "GMetal Shared/ShaderTypes.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		EC1EB6BE23F845C500BBBB00 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = WD3LPJ2STX;
+				ENABLE_HARDENED_RUNTIME = YES;
+				INFOPLIST_FILE = "GMetal macOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				PRODUCT_BUNDLE_IDENTIFIER = com.g.GMetal;
+				PRODUCT_NAME = GMetal;
+				SDKROOT = macosx;
+				SWIFT_OBJC_BRIDGING_HEADER = "GMetal Shared/ShaderTypes.h";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EC1EB68923F845C400BBBB00 /* Build configuration list for PBXProject "GMetal" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC1EB6B723F845C500BBBB00 /* Debug */,
+				EC1EB6B823F845C500BBBB00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC1EB6B923F845C500BBBB00 /* Build configuration list for PBXNativeTarget "GMetal iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC1EB6BA23F845C500BBBB00 /* Debug */,
+				EC1EB6BB23F845C500BBBB00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EC1EB6BC23F845C500BBBB00 /* Build configuration list for PBXNativeTarget "GMetal macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EC1EB6BD23F845C500BBBB00 /* Debug */,
+				EC1EB6BE23F845C500BBBB00 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EC1EB68623F845C400BBBB00 /* Project object */;
+}
