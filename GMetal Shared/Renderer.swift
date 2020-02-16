@@ -107,17 +107,17 @@ class Renderer: NSObject, MTKViewDelegate {
         mtlVertexDescriptor.attributes[VertexAttribute.position.rawValue].offset = 0
         mtlVertexDescriptor.attributes[VertexAttribute.position.rawValue].bufferIndex = BufferIndex.meshPositions.rawValue
         
-        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].format = MTLVertexFormat.float2
-        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].offset = 0
-        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].bufferIndex = BufferIndex.meshGenerics.rawValue
+//        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].format = MTLVertexFormat.float2
+//        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].offset = 0
+//        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].bufferIndex = BufferIndex.meshGenerics.rawValue
         
         mtlVertexDescriptor.layouts[BufferIndex.meshPositions.rawValue].stride = 12
         mtlVertexDescriptor.layouts[BufferIndex.meshPositions.rawValue].stepRate = 1
         mtlVertexDescriptor.layouts[BufferIndex.meshPositions.rawValue].stepFunction = MTLVertexStepFunction.perVertex
         
-        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stride = 8
-        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepRate = 1
-        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepFunction = MTLVertexStepFunction.perVertex
+//        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stride = 8
+//        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepRate = 1
+//        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepFunction = MTLVertexStepFunction.perVertex
         
         return mtlVertexDescriptor
     }
@@ -152,20 +152,29 @@ class Renderer: NSObject, MTKViewDelegate {
         
         let metalAllocator = MTKMeshBufferAllocator(device: device)
         
-        let mdlMesh = MDLMesh(sphereWithExtent: SIMD3<Float>(4,4,4), segments: SIMD2<UInt32>(50, 50), inwardNormals: false, geometryType: .triangles, allocator: metalAllocator)
+        guard let assetURL = Bundle.main.url(forResource: "teapot",
+                                             withExtension: "obj") else {
+          fatalError()
+        }
+        let mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(mtlVertexDescriptor)
+        
+        let asset = MDLAsset(url: assetURL,
+                             vertexDescriptor: mdlVertexDescriptor,
+                             bufferAllocator: metalAllocator)
+        let mdlMesh = asset.childObjects(of: MDLMesh.self).first as! MDLMesh
+        let objects = asset.childObjects(of: MDLMesh.self)
+//        let mdlMesh = MDLMesh(sphereWithExtent: SIMD3<Float>(4,4,4), segments: SIMD2<UInt32>(50, 50), inwardNormals: false, geometryType: .triangles, allocator: metalAllocator)
 //        let mdlMesh = MDLMesh.newBox(withDimensions: SIMD3<Float>(4, 4, 4),
 //                                     segments: SIMD3<UInt32>(2, 2, 2),
 //                                     geometryType: MDLGeometryType.triangles,
 //                                     inwardNormals:false,
 //                                     allocator: metalAllocator)
         
-        let mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(mtlVertexDescriptor)
-        
         guard let attributes = mdlVertexDescriptor.attributes as? [MDLVertexAttribute] else {
             throw RendererError.badVertexDescriptor
         }
         attributes[VertexAttribute.position.rawValue].name = MDLVertexAttributePosition
-        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
+//        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
         
         mdlMesh.vertexDescriptor = mdlVertexDescriptor
         
@@ -206,9 +215,9 @@ class Renderer: NSObject, MTKViewDelegate {
         uniforms[0].projectionMatrix = projectionMatrix
         
         let rotationAxis = SIMD3<Float>(0, 1, 0)
-//        let modelMatrix = matrix_float4x4.init(1.0)
-        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(5), axis: rotationAxis)
-        let viewMatrix = matrix4x4_translation(0.0, 0.0, 8.0)
+        let modelMatrix = matrix4x4_scale(1.0)
+//        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(5), axis: rotationAxis)
+        let viewMatrix = matrix4x4_translation(0.0, 0.0, 5.0)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
         rotation += 0.01
     }
@@ -296,7 +305,7 @@ class Renderer: NSObject, MTKViewDelegate {
         if (aspect == 0) {
             aspect = 0.00001
         }
-        projectionMatrix = matrix_perspective_left_hand(fovyRadians: radians_from_degrees(70), aspectRatio:aspect, nearZ: 0.1, farZ: 8.0)
+        projectionMatrix = matrix_perspective_left_hand(fovyRadians: radians_from_degrees(70), aspectRatio:aspect, nearZ: 0.1, farZ: 180.0)
         
 //        if (aspect > 1) {
 //            projectionMatrix = matrix_float4x4_ortho(left: -4*aspect, right: 4*aspect, bottom: -4, top: 4, near: 4, far: 12)
@@ -325,6 +334,13 @@ func matrix4x4_translation(_ translationX: Float, _ translationY: Float, _ trans
                                          vector_float4(0, 1, 0, 0),
                                          vector_float4(0, 0, 1, 0),
                                          vector_float4(translationX, translationY, translationZ, 1)))
+}
+
+func matrix4x4_scale(_ scale: Float) -> matrix_float4x4 {
+    return matrix_float4x4.init(columns:(vector_float4(scale, 0, 0, 0),
+                                         vector_float4(0, scale, 0, 0),
+                                         vector_float4(0, 0, scale, 0),
+                                         vector_float4(0, 0, 0, 1)))
 }
 
 func matrix_perspective_left_hand(fovyRadians fovy: Float, aspectRatio: Float, nearZ: Float, farZ: Float) -> matrix_float4x4 {
