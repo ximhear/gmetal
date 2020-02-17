@@ -272,7 +272,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 }
                 
                 renderEncoder.setFragmentTexture(colorMap, index: TextureIndex.color.rawValue)
-//                renderEncoder.setTriangleFillMode(.lines)
+                renderEncoder.setTriangleFillMode(.lines)
                 
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
