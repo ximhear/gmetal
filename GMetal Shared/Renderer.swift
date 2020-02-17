@@ -158,11 +158,15 @@ class Renderer: NSObject, MTKViewDelegate {
         }
         let mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(mtlVertexDescriptor)
         
+        guard let attributes = mdlVertexDescriptor.attributes as? [MDLVertexAttribute] else {
+            throw RendererError.badVertexDescriptor
+        }
+        attributes[VertexAttribute.position.rawValue].name = MDLVertexAttributePosition
+        //        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
         let asset = MDLAsset(url: assetURL,
                              vertexDescriptor: mdlVertexDescriptor,
                              bufferAllocator: metalAllocator)
         let mdlMesh = asset.childObjects(of: MDLMesh.self).first as! MDLMesh
-        let objects = asset.childObjects(of: MDLMesh.self)
 //        let mdlMesh = MDLMesh(sphereWithExtent: SIMD3<Float>(4,4,4), segments: SIMD2<UInt32>(50, 50), inwardNormals: false, geometryType: .triangles, allocator: metalAllocator)
 //        let mdlMesh = MDLMesh.newBox(withDimensions: SIMD3<Float>(4, 4, 4),
 //                                     segments: SIMD3<UInt32>(2, 2, 2),
@@ -170,13 +174,8 @@ class Renderer: NSObject, MTKViewDelegate {
 //                                     inwardNormals:false,
 //                                     allocator: metalAllocator)
         
-        guard let attributes = mdlVertexDescriptor.attributes as? [MDLVertexAttribute] else {
-            throw RendererError.badVertexDescriptor
-        }
-        attributes[VertexAttribute.position.rawValue].name = MDLVertexAttributePosition
-//        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
-        
-        mdlMesh.vertexDescriptor = mdlVertexDescriptor
+
+//        mdlMesh.vertexDescriptor = mdlVertexDescriptor
         
         return try MTKMesh(mesh:mdlMesh, device:device)
     }
