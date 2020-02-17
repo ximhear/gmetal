@@ -107,17 +107,17 @@ class Renderer: NSObject, MTKViewDelegate {
         mtlVertexDescriptor.attributes[VertexAttribute.position.rawValue].offset = 0
         mtlVertexDescriptor.attributes[VertexAttribute.position.rawValue].bufferIndex = BufferIndex.meshPositions.rawValue
         
-//        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].format = MTLVertexFormat.float2
-//        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].offset = 0
-//        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].bufferIndex = BufferIndex.meshGenerics.rawValue
+        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].format = MTLVertexFormat.float2
+        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].offset = 0
+        mtlVertexDescriptor.attributes[VertexAttribute.texcoord.rawValue].bufferIndex = BufferIndex.meshGenerics.rawValue
         
         mtlVertexDescriptor.layouts[BufferIndex.meshPositions.rawValue].stride = 12
         mtlVertexDescriptor.layouts[BufferIndex.meshPositions.rawValue].stepRate = 1
         mtlVertexDescriptor.layouts[BufferIndex.meshPositions.rawValue].stepFunction = MTLVertexStepFunction.perVertex
         
-//        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stride = 8
-//        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepRate = 1
-//        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepFunction = MTLVertexStepFunction.perVertex
+        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stride = 8
+        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepRate = 1
+        mtlVertexDescriptor.layouts[BufferIndex.meshGenerics.rawValue].stepFunction = MTLVertexStepFunction.perVertex
         
         return mtlVertexDescriptor
     }
@@ -162,7 +162,7 @@ class Renderer: NSObject, MTKViewDelegate {
             throw RendererError.badVertexDescriptor
         }
         attributes[VertexAttribute.position.rawValue].name = MDLVertexAttributePosition
-        //        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
+        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
         let asset = MDLAsset(url: assetURL,
                              vertexDescriptor: mdlVertexDescriptor,
                              bufferAllocator: metalAllocator)
@@ -215,8 +215,8 @@ class Renderer: NSObject, MTKViewDelegate {
         
         let rotationAxis = SIMD3<Float>(0, 1, 0)
 //        let modelMatrix = matrix4x4_scale(1.0 / 20.0)
-        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0 / 20.0)
-        let viewMatrix = matrix4x4_translation(0.0, 0.0, 15.0)
+        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0)
+        let viewMatrix = matrix4x4_translation(0.0, -1.0, 5.5)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
         rotation += 0.5
     }
@@ -251,7 +251,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 
                 renderEncoder.setCullMode(.back)
                 
-                renderEncoder.setFrontFacing(.counterClockwise)
+                renderEncoder.setFrontFacing(.clockwise)
                 
                 renderEncoder.setRenderPipelineState(pipelineState)
                 
@@ -272,7 +272,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 }
                 
                 renderEncoder.setFragmentTexture(colorMap, index: TextureIndex.color.rawValue)
-                renderEncoder.setTriangleFillMode(.lines)
+//                renderEncoder.setTriangleFillMode(.lines)
                 
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,

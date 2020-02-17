@@ -7,10 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C2EF5A623F9AA5100A81B03 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EF5A523F9AA5100A81B03 /* teapot.obj */; };
-		8C2EF5A723F9AA6D00A81B03 /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EF5A523F9AA5100A81B03 /* teapot.obj */; };
-		8C2EF5A923F9B20D00A81B03 /* red_pepper.obj in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EF5A823F9B20D00A81B03 /* red_pepper.obj */; };
-		8C2EF5AA23F9B20D00A81B03 /* red_pepper.obj in Resources */ = {isa = PBXBuildFile; fileRef = 8C2EF5A823F9B20D00A81B03 /* red_pepper.obj */; };
 		EC1EB69723F845C500BBBB00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB69623F845C500BBBB00 /* AppDelegate.swift */; };
 		EC1EB69923F845C500BBBB00 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB69823F845C500BBBB00 /* GameViewController.swift */; };
 		EC1EB69C23F845C500BBBB00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB69A23F845C500BBBB00 /* Main.storyboard */; };
@@ -26,11 +22,23 @@
 		EC1EB6B423F845C500BBBB00 /* ShaderTypes.h in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */; };
 		EC1EB6B523F845C500BBBB00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68E23F845C500BBBB00 /* Assets.xcassets */; };
 		EC1EB6B623F845C500BBBB00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68E23F845C500BBBB00 /* Assets.xcassets */; };
+		ECE6459823FA252100B26FBB /* teacup.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459123FA252100B26FBB /* teacup.mtl */; };
+		ECE6459923FA252100B26FBB /* teacup.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459123FA252100B26FBB /* teacup.mtl */; };
+		ECE6459A23FA252100B26FBB /* spoon.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459223FA252100B26FBB /* spoon.obj */; };
+		ECE6459B23FA252100B26FBB /* spoon.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459223FA252100B26FBB /* spoon.obj */; };
+		ECE6459C23FA252100B26FBB /* teapot.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459323FA252100B26FBB /* teapot.mtl */; };
+		ECE6459D23FA252100B26FBB /* teapot.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459323FA252100B26FBB /* teapot.mtl */; };
+		ECE6459E23FA252100B26FBB /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459423FA252100B26FBB /* teapot.obj */; };
+		ECE6459F23FA252100B26FBB /* teapot.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459423FA252100B26FBB /* teapot.obj */; };
+		ECE645A023FA252100B26FBB /* teacup.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459523FA252100B26FBB /* teacup.obj */; };
+		ECE645A123FA252100B26FBB /* teacup.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459523FA252100B26FBB /* teacup.obj */; };
+		ECE645A223FA252100B26FBB /* spoon.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459623FA252100B26FBB /* spoon.mtl */; };
+		ECE645A323FA252100B26FBB /* spoon.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459623FA252100B26FBB /* spoon.mtl */; };
+		ECE645A423FA252100B26FBB /* red_pepper.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459723FA252100B26FBB /* red_pepper.obj */; };
+		ECE645A523FA252100B26FBB /* red_pepper.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459723FA252100B26FBB /* red_pepper.obj */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		8C2EF5A523F9AA5100A81B03 /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
-		8C2EF5A823F9B20D00A81B03 /* red_pepper.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = red_pepper.obj; sourceTree = "<group>"; };
 		EC1EB68B23F845C400BBBB00 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		EC1EB68C23F845C400BBBB00 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
@@ -46,6 +54,13 @@
 		EC1EB6A923F845C500BBBB00 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EC1EB6AC23F845C500BBBB00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC1EB6AE23F845C500BBBB00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECE6459123FA252100B26FBB /* teacup.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teacup.mtl; sourceTree = "<group>"; };
+		ECE6459223FA252100B26FBB /* spoon.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spoon.obj; sourceTree = "<group>"; };
+		ECE6459323FA252100B26FBB /* teapot.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.mtl; sourceTree = "<group>"; };
+		ECE6459423FA252100B26FBB /* teapot.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.obj; sourceTree = "<group>"; };
+		ECE6459523FA252100B26FBB /* teacup.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teacup.obj; sourceTree = "<group>"; };
+		ECE6459623FA252100B26FBB /* spoon.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spoon.mtl; sourceTree = "<group>"; };
+		ECE6459723FA252100B26FBB /* red_pepper.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = red_pepper.obj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,8 +94,7 @@
 		EC1EB68A23F845C400BBBB00 /* GMetal Shared */ = {
 			isa = PBXGroup;
 			children = (
-				8C2EF5A823F9B20D00A81B03 /* red_pepper.obj */,
-				8C2EF5A523F9AA5100A81B03 /* teapot.obj */,
+				ECE6459023FA252100B26FBB /* Model */,
 				EC1EB68B23F845C400BBBB00 /* Shaders.metal */,
 				EC1EB68C23F845C400BBBB00 /* Renderer.swift */,
 				EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */,
@@ -119,6 +133,20 @@
 				EC1EB6AE23F845C500BBBB00 /* Info.plist */,
 			);
 			path = "GMetal macOS";
+			sourceTree = "<group>";
+		};
+		ECE6459023FA252100B26FBB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ECE6459123FA252100B26FBB /* teacup.mtl */,
+				ECE6459223FA252100B26FBB /* spoon.obj */,
+				ECE6459323FA252100B26FBB /* teapot.mtl */,
+				ECE6459423FA252100B26FBB /* teapot.obj */,
+				ECE6459523FA252100B26FBB /* teacup.obj */,
+				ECE6459623FA252100B26FBB /* spoon.mtl */,
+				ECE6459723FA252100B26FBB /* red_pepper.obj */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,12 +228,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECE6459E23FA252100B26FBB /* teapot.obj in Resources */,
 				EC1EB6B323F845C500BBBB00 /* ShaderTypes.h in Resources */,
+				ECE6459A23FA252100B26FBB /* spoon.obj in Resources */,
+				ECE645A023FA252100B26FBB /* teacup.obj in Resources */,
 				EC1EB69C23F845C500BBBB00 /* Main.storyboard in Resources */,
+				ECE645A423FA252100B26FBB /* red_pepper.obj in Resources */,
 				EC1EB6B523F845C500BBBB00 /* Assets.xcassets in Resources */,
+				ECE6459C23FA252100B26FBB /* teapot.mtl in Resources */,
 				EC1EB69F23F845C500BBBB00 /* LaunchScreen.storyboard in Resources */,
-				8C2EF5A623F9AA5100A81B03 /* teapot.obj in Resources */,
-				8C2EF5A923F9B20D00A81B03 /* red_pepper.obj in Resources */,
+				ECE6459823FA252100B26FBB /* teacup.mtl in Resources */,
+				ECE645A223FA252100B26FBB /* spoon.mtl in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,11 +246,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C2EF5AA23F9B20D00A81B03 /* red_pepper.obj in Resources */,
-				8C2EF5A723F9AA6D00A81B03 /* teapot.obj in Resources */,
 				EC1EB6AD23F845C500BBBB00 /* Main.storyboard in Resources */,
+				ECE645A323FA252100B26FBB /* spoon.mtl in Resources */,
 				EC1EB6B623F845C500BBBB00 /* Assets.xcassets in Resources */,
+				ECE6459D23FA252100B26FBB /* teapot.mtl in Resources */,
 				EC1EB6B423F845C500BBBB00 /* ShaderTypes.h in Resources */,
+				ECE645A523FA252100B26FBB /* red_pepper.obj in Resources */,
+				ECE6459F23FA252100B26FBB /* teapot.obj in Resources */,
+				ECE645A123FA252100B26FBB /* teacup.obj in Resources */,
+				ECE6459923FA252100B26FBB /* teacup.mtl in Resources */,
+				ECE6459B23FA252100B26FBB /* spoon.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
