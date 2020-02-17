@@ -214,11 +214,11 @@ class Renderer: NSObject, MTKViewDelegate {
         uniforms[0].projectionMatrix = projectionMatrix
         
         let rotationAxis = SIMD3<Float>(0, 1, 0)
-        let modelMatrix = matrix4x4_scale(1.0)
-//        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(5), axis: rotationAxis)
-        let viewMatrix = matrix4x4_translation(0.0, 0.0, 5.0)
+//        let modelMatrix = matrix4x4_scale(1.0 / 20.0)
+        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0 / 20.0)
+        let viewMatrix = matrix4x4_translation(0.0, 0.0, 15.0)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
-        rotation += 0.01
+        rotation += 0.5
     }
     
     func draw(in view: MTKView) {
@@ -249,7 +249,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 
                 renderEncoder.pushDebugGroup("Draw Box")
                 
-                renderEncoder.setCullMode(.none)
+                renderEncoder.setCullMode(.back)
                 
                 renderEncoder.setFrontFacing(.counterClockwise)
                 
