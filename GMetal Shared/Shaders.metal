@@ -19,12 +19,14 @@ using namespace metal;
 typedef struct
 {
     float3 position [[attribute(VertexAttributePosition)]];
+    float3 normal [[attribute(VertexAttributeNormal)]];
     float2 texCoord [[attribute(VertexAttributeTexcoord)]];
 } Vertex;
 
 typedef struct
 {
     float4 position [[position]];
+    float3 normal;
     float2 texCoord;
 } ColorInOut;
 
@@ -35,6 +37,7 @@ vertex ColorInOut vertexShader(Vertex in [[stage_in]],
 
     float4 position = float4(in.position, 1.0);
     out.position = uniforms.projectionMatrix * uniforms.modelViewMatrix * position;
+    out.normal = in.normal;
     out.texCoord = in.texCoord;
 
     return out;
@@ -51,5 +54,8 @@ fragment float4 fragmentShader(ColorInOut in [[stage_in]],
     half4 colorSample   = colorMap.sample(colorSampler, in.texCoord.xy);
 
 //    return float4(colorSample);
-    return float4(1.0, 0, 0, 1);
+    return float4(in.normal.x >= 0 ? in.normal.x : -in.normal.x,
+                  in.normal.y >= 0 ? in.normal.y : -in.normal.y,
+                  in.normal.z >= 0 ? in.normal.z : -in.normal.z,  1);
+//    return float4(1.0, 0, 0, 1);
 }
