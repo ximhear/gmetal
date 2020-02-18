@@ -252,7 +252,7 @@ class Renderer: NSObject, MTKViewDelegate {
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             ///   holding onto the drawable and blocking the display pipeline any longer than necessary
             let renderPassDescriptor = view.currentRenderPassDescriptor
-            renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColorMake(0.5, 1.0, 0.5, 1)
+            renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColorMake(0.01, 0.01, 0.01, 1)
             
             if let renderPassDescriptor = renderPassDescriptor, let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
                 
