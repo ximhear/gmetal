@@ -222,12 +222,14 @@ class Renderer: NSObject, MTKViewDelegate {
         /// Update any game state before rendering
         
         uniforms[0].projectionMatrix = projectionMatrix
-        
+
+//        rotation = 180
         let rotationAxis = SIMD3<Float>(0, 1, 0)
 //        let modelMatrix = matrix4x4_scale(1.0 / 20.0)
         let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * matrix4x4_translation(0.0, 0.0, 15.493 / 2.0)
         let viewMatrix = matrix4x4_translation(0.0, 0.0, 5.5)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
+        uniforms[0].normalMatrix = modelMatrix.upperLeft
         rotation += 0.5
     }
     
@@ -250,7 +252,7 @@ class Renderer: NSObject, MTKViewDelegate {
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             ///   holding onto the drawable and blocking the display pipeline any longer than necessary
             let renderPassDescriptor = view.currentRenderPassDescriptor
-            renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColorMake(0.5, 1, 0.5, 0.5)
+            renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColorMake(0.5, 1.0, 0.5, 1)
             
             if let renderPassDescriptor = renderPassDescriptor, let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
                 
@@ -304,7 +306,7 @@ class Renderer: NSObject, MTKViewDelegate {
                                                         indexType: submesh.indexType,
                                                         indexBuffer: submesh.indexBuffer.buffer,
                                                         indexBufferOffset: submesh.indexBuffer.offset)
-                    
+
                 }
                 
                 renderEncoder.popDebugGroup()

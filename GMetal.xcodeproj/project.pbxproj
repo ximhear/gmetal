@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C0B5C2023FC460000BEE86C /* MathLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0B5C1F23FC460000BEE86C /* MathLibrary.swift */; };
+		8C0B5C2123FC460000BEE86C /* MathLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0B5C1F23FC460000BEE86C /* MathLibrary.swift */; };
 		EC1EB69723F845C500BBBB00 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB69623F845C500BBBB00 /* AppDelegate.swift */; };
 		EC1EB69923F845C500BBBB00 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC1EB69823F845C500BBBB00 /* GameViewController.swift */; };
 		EC1EB69C23F845C500BBBB00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB69A23F845C500BBBB00 /* Main.storyboard */; };
@@ -41,6 +43,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8C0B5C1F23FC460000BEE86C /* MathLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathLibrary.swift; sourceTree = "<group>"; };
 		EC1EB68B23F845C400BBBB00 /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		EC1EB68C23F845C400BBBB00 /* Renderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
@@ -97,6 +100,7 @@
 		EC1EB68A23F845C400BBBB00 /* GMetal Shared */ = {
 			isa = PBXGroup;
 			children = (
+				8C0B5C1F23FC460000BEE86C /* MathLibrary.swift */,
 				ECE6459023FA252100B26FBB /* Model */,
 				EC1EB68B23F845C400BBBB00 /* Shaders.metal */,
 				EC1EB68C23F845C400BBBB00 /* Renderer.swift */,
@@ -276,6 +280,7 @@
 				EC1EB6AF23F845C500BBBB00 /* Shaders.metal in Sources */,
 				EC1EB69923F845C500BBBB00 /* GameViewController.swift in Sources */,
 				EC1EB69723F845C500BBBB00 /* AppDelegate.swift in Sources */,
+				8C0B5C2023FC460000BEE86C /* MathLibrary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,6 +292,7 @@
 				EC1EB6B023F845C500BBBB00 /* Shaders.metal in Sources */,
 				EC1EB6AA23F845C500BBBB00 /* GameViewController.swift in Sources */,
 				EC1EB6A823F845C500BBBB00 /* AppDelegate.swift in Sources */,
+				8C0B5C2123FC460000BEE86C /* MathLibrary.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
