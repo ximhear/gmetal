@@ -36,6 +36,8 @@
 		ECE645A323FA252100B26FBB /* spoon.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459623FA252100B26FBB /* spoon.mtl */; };
 		ECE645A423FA252100B26FBB /* red_pepper.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459723FA252100B26FBB /* red_pepper.obj */; };
 		ECE645A523FA252100B26FBB /* red_pepper.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459723FA252100B26FBB /* red_pepper.obj */; };
+		ECF5B89423FB962F008AC765 /* itokawa.stl in Resources */ = {isa = PBXBuildFile; fileRef = ECF5B89323FB962E008AC765 /* itokawa.stl */; };
+		ECF5B89523FB962F008AC765 /* itokawa.stl in Resources */ = {isa = PBXBuildFile; fileRef = ECF5B89323FB962E008AC765 /* itokawa.stl */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -61,6 +63,7 @@
 		ECE6459523FA252100B26FBB /* teacup.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teacup.obj; sourceTree = "<group>"; };
 		ECE6459623FA252100B26FBB /* spoon.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spoon.mtl; sourceTree = "<group>"; };
 		ECE6459723FA252100B26FBB /* red_pepper.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = red_pepper.obj; sourceTree = "<group>"; };
+		ECF5B89323FB962E008AC765 /* itokawa.stl */ = {isa = PBXFileReference; lastKnownFileType = file; path = itokawa.stl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,6 +141,7 @@
 		ECE6459023FA252100B26FBB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ECF5B89323FB962E008AC765 /* itokawa.stl */,
 				ECE6459123FA252100B26FBB /* teacup.mtl */,
 				ECE6459223FA252100B26FBB /* spoon.obj */,
 				ECE6459323FA252100B26FBB /* teapot.mtl */,
@@ -228,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ECF5B89423FB962F008AC765 /* itokawa.stl in Resources */,
 				ECE6459E23FA252100B26FBB /* teapot.obj in Resources */,
 				EC1EB6B323F845C500BBBB00 /* ShaderTypes.h in Resources */,
 				ECE6459A23FA252100B26FBB /* spoon.obj in Resources */,
@@ -252,6 +257,7 @@
 				ECE6459D23FA252100B26FBB /* teapot.mtl in Resources */,
 				EC1EB6B423F845C500BBBB00 /* ShaderTypes.h in Resources */,
 				ECE645A523FA252100B26FBB /* red_pepper.obj in Resources */,
+				ECF5B89523FB962F008AC765 /* itokawa.stl in Resources */,
 				ECE6459F23FA252100B26FBB /* teapot.obj in Resources */,
 				ECE645A123FA252100B26FBB /* teacup.obj in Resources */,
 				ECE6459923FA252100B26FBB /* teacup.mtl in Resources */,

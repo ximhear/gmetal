@@ -152,8 +152,8 @@ class Renderer: NSObject, MTKViewDelegate {
         
         let metalAllocator = MTKMeshBufferAllocator(device: device)
         
-        guard let assetURL = Bundle.main.url(forResource: "teapot",
-                                             withExtension: "obj") else {
+        guard let assetURL = Bundle.main.url(forResource: "itokawa",
+                                             withExtension: "stl") else {
           fatalError()
         }
         let mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(mtlVertexDescriptor)
@@ -208,14 +208,14 @@ class Renderer: NSObject, MTKViewDelegate {
         uniforms = UnsafeMutableRawPointer(dynamicUniformBuffer.contents() + uniformBufferOffset).bindMemory(to:Uniforms.self, capacity:1)
     }
     
-    private func updateGameState() {
+    private func updateGameState(zScale: Float = 1) {
         /// Update any game state before rendering
         
         uniforms[0].projectionMatrix = projectionMatrix
         
         let rotationAxis = SIMD3<Float>(0, 1, 0)
 //        let modelMatrix = matrix4x4_scale(1.0 / 20.0)
-        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0)
+        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0 / 10.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * matrix4x4_translation(0.0, 0.0, 15.493 / 2.0)
         let viewMatrix = matrix4x4_translation(0.0, -1.0, 5.5)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
         rotation += 0.5
@@ -235,7 +235,7 @@ class Renderer: NSObject, MTKViewDelegate {
             
             self.updateDynamicBufferState()
             
-            self.updateGameState()
+            self.updateGameState(zScale: 1)
             
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             ///   holding onto the drawable and blocking the display pipeline any longer than necessary
@@ -274,6 +274,20 @@ class Renderer: NSObject, MTKViewDelegate {
                 renderEncoder.setFragmentTexture(colorMap, index: TextureIndex.color.rawValue)
                 renderEncoder.setTriangleFillMode(.lines)
                 
+                for submesh in mesh.submeshes {
+                    renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
+                                                        indexCount: submesh.indexCount,
+                                                        indexType: submesh.indexType,
+                                                        indexBuffer: submesh.indexBuffer.buffer,
+                                                        indexBufferOffset: submesh.indexBuffer.offset)
+                    
+                }
+
+                self.updateDynamicBufferState()
+                self.updateGameState(zScale: -1)
+                renderEncoder.setFrontFacing(.counterClockwise)
+                renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+                renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
                                                         indexCount: submesh.indexCount,
@@ -339,6 +353,13 @@ func matrix4x4_scale(_ scale: Float) -> matrix_float4x4 {
     return matrix_float4x4.init(columns:(vector_float4(scale, 0, 0, 0),
                                          vector_float4(0, scale, 0, 0),
                                          vector_float4(0, 0, scale, 0),
+                                         vector_float4(0, 0, 0, 1)))
+}
+
+func matrix4x4_scale(x: Float, y: Float, z: Float) -> matrix_float4x4 {
+    return matrix_float4x4.init(columns:(vector_float4(x, 0, 0, 0),
+                                         vector_float4(0, y, 0, 0),
+                                         vector_float4(0, 0, z, 0),
                                          vector_float4(0, 0, 0, 1)))
 }
 
