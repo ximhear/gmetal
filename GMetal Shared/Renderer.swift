@@ -215,8 +215,8 @@ class Renderer: NSObject, MTKViewDelegate {
         
         let rotationAxis = SIMD3<Float>(0, 1, 0)
 //        let modelMatrix = matrix4x4_scale(1.0 / 20.0)
-        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0 / 10.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * matrix4x4_translation(0.0, 0.0, 15.493 / 2.0)
-        let viewMatrix = matrix4x4_translation(0.0, -1.0, 5.5)
+        let modelMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis) * matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * matrix4x4_translation(0.0, 0.0, 15.493 / 2.0)
+        let viewMatrix = matrix4x4_translation(0.0, 0.0, 5.5)
         uniforms[0].modelViewMatrix = simd_mul(viewMatrix, modelMatrix)
         rotation += 0.5
     }
