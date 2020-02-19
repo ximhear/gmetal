@@ -27,6 +27,7 @@ class Renderer: NSObject, MTKViewDelegate {
     let commandQueue: MTLCommandQueue
     var dynamicUniformBuffer: MTLBuffer
     var pipelineState: MTLRenderPipelineState
+    var pipelineState2: MTLRenderPipelineState
     var depthState: MTLDepthStencilState
     var colorMap: MTLTexture
     
@@ -67,7 +68,20 @@ class Renderer: NSObject, MTKViewDelegate {
         do {
             pipelineState = try Renderer.buildRenderPipelineWithDevice(device: device,
                                                                        metalKitView: metalKitView,
-                                                                       mtlVertexDescriptor: mtlVertexDescriptor)
+                                                                       mtlVertexDescriptor: mtlVertexDescriptor,
+                                                                       vertexShaderName: "vertexShader",
+                                                                       fragmentShaderName:  "fragmentShader")
+        } catch {
+            print("Unable to compile render pipeline state.  Error info: \(error)")
+            return nil
+        }
+        
+        do {
+            pipelineState2 = try Renderer.buildRenderPipelineWithDevice(device: device,
+                                                                       metalKitView: metalKitView,
+                                                                       mtlVertexDescriptor: mtlVertexDescriptor,
+                                                                       vertexShaderName: "vertexShader2",
+                                                                       fragmentShaderName:  "fragmentShader2")
         } catch {
             print("Unable to compile render pipeline state.  Error info: \(error)")
             return nil
@@ -133,13 +147,15 @@ class Renderer: NSObject, MTKViewDelegate {
     
     class func buildRenderPipelineWithDevice(device: MTLDevice,
                                              metalKitView: MTKView,
-                                             mtlVertexDescriptor: MTLVertexDescriptor) throws -> MTLRenderPipelineState {
+                                             mtlVertexDescriptor: MTLVertexDescriptor,
+                                             vertexShaderName: String,
+                                             fragmentShaderName: String) throws -> MTLRenderPipelineState {
         /// Build a render state pipeline object
         
         let library = device.makeDefaultLibrary()
         
-        let vertexFunction = library?.makeFunction(name: "vertexShader")
-        let fragmentFunction = library?.makeFunction(name: "fragmentShader")
+        let vertexFunction = library?.makeFunction(name: vertexShaderName)
+        let fragmentFunction = library?.makeFunction(name: fragmentShaderName)
         
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.label = "RenderPipeline"
@@ -245,16 +261,15 @@ class Renderer: NSObject, MTKViewDelegate {
                 semaphore.signal()
             }
             
-            self.updateDynamicBufferState()
-            
-            self.updateGameState(zScale: 1)
-            
             /// Delay getting the currentRenderPassDescriptor until we absolutely need it to avoid
             ///   holding onto the drawable and blocking the display pipeline any longer than necessary
             let renderPassDescriptor = view.currentRenderPassDescriptor
             renderPassDescriptor?.colorAttachments[0].clearColor = MTLClearColorMake(0.01, 0.01, 0.01, 1)
             
             if let renderPassDescriptor = renderPassDescriptor, let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
+                
+                self.updateDynamicBufferState()
+                self.updateGameState(zScale: 1)
                 
                 /// Final pass rendering code here
                 renderEncoder.label = "Primary Render Encoder"
@@ -297,6 +312,7 @@ class Renderer: NSObject, MTKViewDelegate {
 
                 self.updateDynamicBufferState()
                 self.updateGameState(zScale: -1)
+                renderEncoder.setRenderPipelineState(pipelineState2)
                 renderEncoder.setFrontFacing(.counterClockwise)
                 renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
                 renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
