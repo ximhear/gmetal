@@ -38,10 +38,10 @@ vertex ColorInOut vertexShader(Vertex in [[stage_in]],
     ColorInOut out;
 
     float4 position = float4(in.position, 1.0);
-    out.position = uniforms.projectionMatrix * uniforms.modelViewMatrix * position;
+    out.position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position;
     out.normal = in.normal;
     out.texCoord = in.texCoord;
-    out.worldPosition = (uniforms.modelViewMatrix * position).xyz;
+    out.worldPosition = (uniforms.modelMatrix * position).xyz;
     out.worldNormal = uniforms.normalMatrix * in.normal;
 
     return out;
@@ -88,10 +88,11 @@ vertex ColorInOut vertexShader2(Vertex in [[stage_in]],
     ColorInOut out;
     
     float4 position = float4(in.position, 1.0);
-    out.position = uniforms.projectionMatrix * uniforms.modelViewMatrix * position;
+    out.position = uniforms.projectionMatrix * uniforms.viewMatrix * uniforms.modelMatrix * position;
     out.normal = in.normal;
-    out.texCoord = in.texCoord;
-    out.worldPosition = (uniforms.modelViewMatrix * position).xyz;
+    float4 tex = uniforms.textureMatrix * position;
+    out.texCoord = float2(tex.x / tex.w, tex.y / tex.w) * 0.5 + 0.5;
+    out.worldPosition = (uniforms.modelMatrix * position).xyz;
     out.worldNormal = uniforms.normalMatrix * in.normal;
     
     return out;
@@ -118,7 +119,8 @@ fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
     float3 lightPosition3 = normalize(float3(0,-1,-1));
     float3 lightPosition4 = normalize(float3(-1,0,-1));
     float3 normalDirection = normalize(in.worldNormal);
-    float3 baseColor = float3(normalDirection.x, normalDirection.y, -normalDirection.z);
+    float3 baseColor = float3(colorSample.xyz);
+//    float3 baseColor = float3(normalDirection.x, normalDirection.y, -normalDirection.z);
     float3 ambientColor = float3(0.5, 0.5, 0.5) * 0.1;
     float3 diffuseColor1 = saturate(dot(lightPosition1, normalDirection)) * lightColor1 * baseColor;
     float3 diffuseColor2 = saturate(dot(lightPosition2, normalDirection)) * lightColor2 * baseColor;
@@ -127,7 +129,8 @@ fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
     float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4;
     //    float3 color = diffuseColor4;
     return float4(color, 1);
-    //    return float4(colorSample);
+//    return float4(in.texCoord.x >= 0  && in.texCoord.y <= 1 ? 1 : 0, in.texCoord.y <= 1 && in.texCoord.y >= 0 ? 1 : 0, 0, 1);
+//        return float4(colorSample);
 //    return float4(in.normal.x >= 0 ? in.normal.x : -in.normal.x,
 //                  in.normal.y >= 0 ? in.normal.y : -in.normal.y,
 //                  in.normal.z >= 0 ? in.normal.z : -in.normal.z,  1);

@@ -43,8 +43,10 @@ typedef NS_ENUM(NSInteger, TextureIndex)
 typedef struct
 {
     matrix_float4x4 projectionMatrix;
-    matrix_float4x4 modelViewMatrix;
+    matrix_float4x4 modelMatrix;
+    matrix_float4x4 viewMatrix;
     matrix_float3x3 normalMatrix;
+    matrix_float4x4 textureMatrix;
 } Uniforms;
 
 #endif /* ShaderTypes_h */
