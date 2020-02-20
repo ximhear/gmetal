@@ -24,6 +24,8 @@
 		EC1EB6B423F845C500BBBB00 /* ShaderTypes.h in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68D23F845C400BBBB00 /* ShaderTypes.h */; };
 		EC1EB6B523F845C500BBBB00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68E23F845C500BBBB00 /* Assets.xcassets */; };
 		EC1EB6B623F845C500BBBB00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC1EB68E23F845C500BBBB00 /* Assets.xcassets */; };
+		EC4E81B223FEEE29008FF7C0 /* GameViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4E81B123FEEE29008FF7C0 /* GameViewControllerExtension.swift */; };
+		EC4E81B423FEEE38008FF7C0 /* GameViewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC4E81B323FEEE38008FF7C0 /* GameViewControllerExtension.swift */; };
 		ECE6459823FA252100B26FBB /* teacup.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459123FA252100B26FBB /* teacup.mtl */; };
 		ECE6459923FA252100B26FBB /* teacup.mtl in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459123FA252100B26FBB /* teacup.mtl */; };
 		ECE6459A23FA252100B26FBB /* spoon.obj in Resources */ = {isa = PBXBuildFile; fileRef = ECE6459223FA252100B26FBB /* spoon.obj */; };
@@ -59,6 +61,8 @@
 		EC1EB6A923F845C500BBBB00 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		EC1EB6AC23F845C500BBBB00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EC1EB6AE23F845C500BBBB00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EC4E81B123FEEE29008FF7C0 /* GameViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewControllerExtension.swift; sourceTree = "<group>"; };
+		EC4E81B323FEEE38008FF7C0 /* GameViewControllerExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewControllerExtension.swift; sourceTree = "<group>"; };
 		ECE6459123FA252100B26FBB /* teacup.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teacup.mtl; sourceTree = "<group>"; };
 		ECE6459223FA252100B26FBB /* spoon.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spoon.obj; sourceTree = "<group>"; };
 		ECE6459323FA252100B26FBB /* teapot.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = teapot.mtl; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 		EC1EB69523F845C500BBBB00 /* GMetal iOS */ = {
 			isa = PBXGroup;
 			children = (
+				EC4E81B123FEEE29008FF7C0 /* GameViewControllerExtension.swift */,
 				EC1EB69623F845C500BBBB00 /* AppDelegate.swift */,
 				EC1EB69823F845C500BBBB00 /* GameViewController.swift */,
 				EC1EB69A23F845C500BBBB00 /* Main.storyboard */,
@@ -134,6 +139,7 @@
 		EC1EB6A623F845C500BBBB00 /* GMetal macOS */ = {
 			isa = PBXGroup;
 			children = (
+				EC4E81B323FEEE38008FF7C0 /* GameViewControllerExtension.swift */,
 				EC1EB6A723F845C500BBBB00 /* AppDelegate.swift */,
 				EC1EB6A923F845C500BBBB00 /* GameViewController.swift */,
 				EC1EB6AB23F845C500BBBB00 /* Main.storyboard */,
@@ -278,6 +284,7 @@
 			files = (
 				EC1EB6B123F845C500BBBB00 /* Renderer.swift in Sources */,
 				EC1EB6AF23F845C500BBBB00 /* Shaders.metal in Sources */,
+				EC4E81B223FEEE29008FF7C0 /* GameViewControllerExtension.swift in Sources */,
 				EC1EB69923F845C500BBBB00 /* GameViewController.swift in Sources */,
 				EC1EB69723F845C500BBBB00 /* AppDelegate.swift in Sources */,
 				8C0B5C2023FC460000BEE86C /* MathLibrary.swift in Sources */,
@@ -290,6 +297,7 @@
 			files = (
 				EC1EB6B223F845C500BBBB00 /* Renderer.swift in Sources */,
 				EC1EB6B023F845C500BBBB00 /* Shaders.metal in Sources */,
+				EC4E81B423FEEE38008FF7C0 /* GameViewControllerExtension.swift in Sources */,
 				EC1EB6AA23F845C500BBBB00 /* GameViewController.swift in Sources */,
 				EC1EB6A823F845C500BBBB00 /* AppDelegate.swift in Sources */,
 				8C0B5C2123FC460000BEE86C /* MathLibrary.swift in Sources */,

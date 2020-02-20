@@ -69,7 +69,7 @@ fragment float4 fragmentShader(ColorInOut in [[stage_in]],
     float3 spotLightPosition = float3(0, 1, -2);
     float3 spotLightDirection = normalize(spotLightPosition - in.worldPosition.xyz);
     float3 coneDirection = float3(0, 0, 1);
-    float coneAngle = 35.0 * M_PI_F / 180.0;
+    float coneAngle = 5.0 * M_PI_F / 180.0;
     
     float3 ambientColor = float3(0.5, 0.5, 0.5) * 0.1;
     float3 diffuseColor1 = saturate(dot(lightPosition1, normalDirection)) * lightColor1 * baseColor;
@@ -80,11 +80,13 @@ fragment float4 fragmentShader(ColorInOut in [[stage_in]],
     float spotResult = saturate(dot(spotLightDirection, -coneDirection));
     float3 spotLightColor = float3(1);
     float3 diffuseColor5 = float3(0);
+    
+    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4;
     if (spotResult > cos(coneAngle)) {
         diffuseColor5 = saturate(dot(spotLightDirection, normalDirection)) * spotLightColor;
+        color = mix(color, diffuseColor5, 0.75);
     }
     
-    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4 + diffuseColor5;
 //    float3 color = diffuseColor4;
     return float4(color, 1);
 //    return float4(colorSample);
@@ -136,7 +138,7 @@ fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
     float3 spotLightPosition = float3(0, 1, -2);
     float3 spotLightDirection = normalize(spotLightPosition - in.worldPosition.xyz);
     float3 coneDirection = float3(0, 0, 1);
-    float coneAngle = 35.0 * M_PI_F / 180.0;
+    float coneAngle = 5.0 * M_PI_F / 180.0;
     
     float3 ambientColor = float3(0.5, 0.5, 0.5) * 0.1;
     float3 diffuseColor1 = saturate(dot(lightPosition1, normalDirection)) * lightColor1 * baseColor;
@@ -148,7 +150,7 @@ fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
     float3 spotLightColor = float3(138, 43, 226) / 255.0;
     float3 diffuseColor5 = float3(0);
 
-    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4 + diffuseColor5;
+    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4;
     if (spotResult > cos(coneAngle)) {
         diffuseColor5 = saturate(dot(spotLightDirection, normalDirection)) * spotLightColor;
         color = mix(color, diffuseColor5, 0.5);

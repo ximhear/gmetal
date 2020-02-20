@@ -41,8 +41,6 @@ class Renderer: NSObject, MTKViewDelegate {
     
     var projectionMatrix: matrix_float4x4 = matrix_float4x4()
     
-    var rotation: Float = 0
-    
     var mesh: MTKMesh
     
     init?(metalKitView: MTKView) {
@@ -239,18 +237,18 @@ class Renderer: NSObject, MTKViewDelegate {
         
         uniforms[0].projectionMatrix = projectionMatrix
 
-//        rotation = 180
-        let rotationAxis = SIMD3<Float>(0, 1, 0)
-//        let modelMatrix = matrix4x4_scale(1.0 / 20.0)
-        let rotationMatrix = matrix4x4_rotation(radians: radians_from_degrees(rotation), axis: rotationAxis)
-        let scaleTranslationMatrix = matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * matrix4x4_translation(0.0, 0.0, 15.493 / 2.0)
+        
+        let translateMatrix = float4x4(translation: [0, 0, Float(15.493 / 2.0)])
+        let rotationMatrix = float4x4(rotationYXZ: [-rotation.x,
+                                                    rotation.y,
+                                                    0])
+        let scaleTranslationMatrix = matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * translateMatrix
         let modelMatrix = rotationMatrix * scaleTranslationMatrix
-        let viewMatrix = matrix4x4_translation(0.0, 0.0, 5.5)
-        uniforms[0].modelMatrix = modelMatrix
-        uniforms[0].viewMatrix = viewMatrix
+        let viewMatrix = float4x4(translation: [target.x, target.y, target.z + distance])
+        uniforms[0].modelMatrix = viewMatrix * modelMatrix
+        uniforms[0].viewMatrix = float4x4.identity()
         uniforms[0].normalMatrix = modelMatrix.upperLeft
         uniforms[0].textureMatrix = projectionMatrix * viewMatrix * scaleTranslationMatrix
-        rotation += 0.5
     }
     
     func draw(in view: MTKView) {
@@ -358,6 +356,28 @@ class Renderer: NSObject, MTKViewDelegate {
 //        else {
 //            projectionMatrix = matrix_float4x4_ortho(left: -4, right: 4, bottom: -4/aspect, top: 4/aspect, near: 4, far: 12)
 //        }
+    }
+    
+    var target: float3 = [0, 0, 5.5]
+    var distance: Float = 0
+    var rotation: float3 = [0, 0, 0]
+}
+
+extension Renderer {
+    
+    func zoom(delta: Float) {
+        let sensitivity: Float = 0.05
+        distance -= delta * sensitivity
+        print("distance : \(distance)")
+    }
+    
+    func rotate(delta: float2) {
+        let sensitivity: Float = 0.005
+        rotation.y += delta.x * sensitivity
+        rotation.x += delta.y * sensitivity
+//        rotation.x = max(-Float.pi/2,
+//                         min(rotation.x,
+//                             Float.pi/2))
     }
 }
 

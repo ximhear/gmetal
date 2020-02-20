@@ -42,5 +42,6 @@ class GameViewController: NSViewController {
         renderer.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
 
         mtkView.delegate = renderer
+        addGestureRecognizers(to: mtkView)
     }
 }
