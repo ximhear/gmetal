@@ -55,7 +55,6 @@ fragment float4 fragmentShader(ColorInOut in [[stage_in]],
                                    mag_filter::linear,
                                    min_filter::linear);
 
-    half4 colorSample   = colorMap.sample(colorSampler, in.texCoord.xy);
     float3 baseColor = float3(0.5, 0.6, 0.7);
     float3 lightColor1 = float3(1,1,1);
     float3 lightColor2 = float3(1,0,0);
@@ -66,12 +65,26 @@ fragment float4 fragmentShader(ColorInOut in [[stage_in]],
     float3 lightPosition3 = normalize(float3(0,-1,-1));
     float3 lightPosition4 = normalize(float3(-1,0,-1));
     float3 normalDirection = normalize(in.worldNormal);
+    half4 colorSample   = colorMap.sample(colorSampler, in.texCoord.xy);
+    float3 spotLightPosition = float3(0, 1, -2);
+    float3 spotLightDirection = normalize(spotLightPosition - in.worldPosition.xyz);
+    float3 coneDirection = float3(0, 0, 1);
+    float coneAngle = 35.0 * M_PI_F / 180.0;
+    
     float3 ambientColor = float3(0.5, 0.5, 0.5) * 0.1;
     float3 diffuseColor1 = saturate(dot(lightPosition1, normalDirection)) * lightColor1 * baseColor;
     float3 diffuseColor2 = saturate(dot(lightPosition2, normalDirection)) * lightColor2 * baseColor;
     float3 diffuseColor3 = saturate(dot(lightPosition3, normalDirection)) * lightColor3 * baseColor;
     float3 diffuseColor4 = saturate(dot(lightPosition4, normalDirection)) * lightColor4 * baseColor;
-    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4;
+    
+    float spotResult = saturate(dot(spotLightDirection, -coneDirection));
+    float3 spotLightColor = float3(1);
+    float3 diffuseColor5 = float3(0);
+    if (spotResult > cos(coneAngle)) {
+        diffuseColor5 = saturate(dot(spotLightDirection, normalDirection)) * spotLightColor;
+    }
+    
+    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4 + diffuseColor5;
 //    float3 color = diffuseColor4;
     return float4(color, 1);
 //    return float4(colorSample);
@@ -120,20 +133,26 @@ fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
     float3 lightPosition4 = normalize(float3(-1,0,-1));
     float3 normalDirection = normalize(in.worldNormal);
     float3 baseColor = float3(colorSample.xyz);
-//    float3 baseColor = float3(normalDirection.x, normalDirection.y, -normalDirection.z);
+    float3 spotLightPosition = float3(0, 1, -2);
+    float3 spotLightDirection = normalize(spotLightPosition - in.worldPosition.xyz);
+    float3 coneDirection = float3(0, 0, 1);
+    float coneAngle = 35.0 * M_PI_F / 180.0;
+    
     float3 ambientColor = float3(0.5, 0.5, 0.5) * 0.1;
     float3 diffuseColor1 = saturate(dot(lightPosition1, normalDirection)) * lightColor1 * baseColor;
     float3 diffuseColor2 = saturate(dot(lightPosition2, normalDirection)) * lightColor2 * baseColor;
     float3 diffuseColor3 = saturate(dot(lightPosition3, normalDirection)) * lightColor3 * baseColor;
     float3 diffuseColor4 = saturate(dot(lightPosition4, normalDirection)) * lightColor4 * baseColor;
-    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4;
-    //    float3 color = diffuseColor4;
-    return float4(color, 1);
-//    return float4(in.texCoord.x >= 0  && in.texCoord.y <= 1 ? 1 : 0, in.texCoord.y <= 1 && in.texCoord.y >= 0 ? 1 : 0, 0, 1);
-//        return float4(colorSample);
-//    return float4(in.normal.x >= 0 ? in.normal.x : -in.normal.x,
-//                  in.normal.y >= 0 ? in.normal.y : -in.normal.y,
-//                  in.normal.z >= 0 ? in.normal.z : -in.normal.z,  1);
     
-//        return float4(1.0, 0, 0, 1);
+    float spotResult = saturate(dot(spotLightDirection, -coneDirection));
+    float3 spotLightColor = float3(138, 43, 226) / 255.0;
+    float3 diffuseColor5 = float3(0);
+
+    float3 color = ambientColor + diffuseColor1 + diffuseColor2 + diffuseColor3 + diffuseColor4 + diffuseColor5;
+    if (spotResult > cos(coneAngle)) {
+        diffuseColor5 = saturate(dot(spotLightDirection, normalDirection)) * spotLightColor;
+        color = mix(color, diffuseColor5, 0.5);
+    }
+
+    return float4(color, 1);
 }
