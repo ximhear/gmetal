@@ -240,56 +240,56 @@ class Renderer: NSObject, MTKViewDelegate {
 
         
         let translateMatrix = float4x4(translation: [0, 0, Float(15.493 / 2.0)])
-//        let rotationMatrix = float4x4(rotationYXZ: [-rotation.x,
-//                                                    rotation.y,
-//                                                    0])
-//        let rotationMatrix = matrix4x4_rotation(radians: radians_from_degrees(30), axis: SIMD3<Float>(0, 0, 1))
-        
-        var degreeX: Float = (-rotation.x).radiansToDegrees
-        var degreeY: Float = (rotation.y).radiansToDegrees
-        if (degreeY < 0) {
-            let angle = (-degreeY).truncatingRemainder(dividingBy: 360)
-            if (angle <= 180) {
-                degreeY = -angle
-            }
-            else {
-                degreeY = 360 - angle
-            }
-        }
-        else {
-            let angle = (degreeY).truncatingRemainder(dividingBy: 360)
-            if (angle <= 180) {
-                degreeY = angle
-            }
-            else {
-                degreeY = angle - 360
-            }
-        }
-        if (degreeX < 0) {
-            let angle = (-degreeX).truncatingRemainder(dividingBy: 360)
-            if (angle <= 180) {
-                degreeX = -angle
-            }
-            else {
-                degreeX = 360 - angle
-            }
-        }
-        else {
-            let angle = (degreeX).truncatingRemainder(dividingBy: 360)
-            if (angle <= 180) {
-                degreeX = angle
-            }
-            else {
-                degreeX = angle - 360
-            }
-        }
-        if (abs(degreeY) > abs(degreeX)) {
-            rotationMatrix = float4x4(rotationX: radians_from_degrees(degreeX)) * float4x4(rotationY: radians_from_degrees(degreeY)) * rotationMatrix
-        }
-        else {
-            rotationMatrix = float4x4(rotationY: radians_from_degrees(degreeY)) * float4x4(rotationX: radians_from_degrees(degreeX)) * rotationMatrix
-        }
+        let rotationMatrix1 = float4x4(rotationYXZ: [-rotation.x,
+                                                    rotation.y,
+                                                    0])
 
+//        var degreeX: Float = (-rotation.x).radiansToDegrees
+//        var degreeY: Float = (rotation.y).radiansToDegrees
+//        if (degreeY < 0) {
+//            let angle = (-degreeY).truncatingRemainder(dividingBy: 360)
+//            if (angle <= 180) {
+//                degreeY = -angle
+//            }
+//            else {
+//                degreeY = 360 - angle
+//            }
+//        }
+//        else {
+//            let angle = (degreeY).truncatingRemainder(dividingBy: 360)
+//            if (angle <= 180) {
+//                degreeY = angle
+//            }
+//            else {
+//                degreeY = angle - 360
+//            }
+//        }
+//        if (degreeX < 0) {
+//            let angle = (-degreeX).truncatingRemainder(dividingBy: 360)
+//            if (angle <= 180) {
+//                degreeX = -angle
+//            }
+//            else {
+//                degreeX = 360 - angle
+//            }
+//        }
+//        else {
+//            let angle = (degreeX).truncatingRemainder(dividingBy: 360)
+//            if (angle <= 180) {
+//                degreeX = angle
+//            }
+//            else {
+//                degreeX = angle - 360
+//            }
+//        }
+//        if (abs(degreeY) > abs(degreeX)) {
+//            rotationMatrix = float4x4(rotationX: radians_from_degrees(degreeX)) * float4x4(rotationY: radians_from_degrees(degreeY)) * rotationMatrix
+//        }
+//        else {
+//            rotationMatrix = float4x4(rotationY: radians_from_degrees(degreeY)) * float4x4(rotationX: radians_from_degrees(degreeX)) * rotationMatrix
+//        }
+
+        rotationMatrix = rotationMatrix1 * rotationMatrix
         let scaleTranslationMatrix = matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * translateMatrix
         let modelMatrix = rotationMatrix * scaleTranslationMatrix
         let viewMatrix = float4x4(translation: [target.x, target.y, target.z + distance])
