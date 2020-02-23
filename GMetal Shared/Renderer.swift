@@ -233,8 +233,8 @@ class Renderer: NSObject, MTKViewDelegate {
     class func buildSamplerState(device: MTLDevice) -> MTLSamplerState? {
         
         let descriptor = MTLSamplerDescriptor()
-        descriptor.sAddressMode = .clampToEdge
-        descriptor.tAddressMode = .clampToEdge
+        descriptor.sAddressMode = .repeat
+        descriptor.tAddressMode = .repeat
         descriptor.magFilter = .linear
         descriptor.minFilter = .linear
         descriptor.mipFilter = .linear

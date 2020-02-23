@@ -119,21 +119,7 @@ fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
                                 sampler colorSampler [[ sampler(0) ]])
 {
     half4 colorSample   = colorMap.sample(colorSampler, in.texCoord.xy);
-    if (in.texCoord.x < 0 && in.texCoord.y < 0) {
-        return float4(1,0,0,1);
-    }
-    if (in.texCoord.x < 0 && in.texCoord.y > 1) {
-        return float4(0,1,0,1);
-    }
-    if (in.texCoord.x > 1 && in.texCoord.y < 0) {
-        return float4(0,0,1,1);
-    }
-    if (in.texCoord.x > 1 && in.texCoord.y > 1) {
-        return float4(1,0,1,1);
-    }
-//    float3 baseColor = float3(in.normal.x >= 0 ? in.normal.x : -in.normal.x,
-//                              in.normal.y >= 0 ? in.normal.y : -in.normal.y,
-//                              in.normal.z >= 0 ? in.normal.z : -in.normal.z);
+    
     float3 lightColor1 = float3(1,1,1);
     float3 lightColor2 = float3(1,0,0);
     float3 lightColor3 = float3(0,1,0);
