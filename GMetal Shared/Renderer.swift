@@ -30,6 +30,7 @@ class Renderer: NSObject, MTKViewDelegate {
     var pipelineState2: MTLRenderPipelineState
     var depthState: MTLDepthStencilState
     var colorMap: MTLTexture
+    var samplerState : MTLSamplerState
     
     let inFlightSemaphore = DispatchSemaphore(value: maxBuffersInFlight)
     
@@ -106,6 +107,12 @@ class Renderer: NSObject, MTKViewDelegate {
             return nil
         }
         
+        guard let sampler = Renderer.buildSamplerState(device: device) else {
+            print("Unable to buile sampler state.")
+            return nil
+        }
+        samplerState = sampler
+
         super.init()
         
     }
@@ -221,6 +228,18 @@ class Renderer: NSObject, MTKViewDelegate {
                                             bundle: nil,
                                             options: textureLoaderOptions)
         
+    }
+    
+    class func buildSamplerState(device: MTLDevice) -> MTLSamplerState? {
+        
+        let descriptor = MTLSamplerDescriptor()
+        descriptor.sAddressMode = .clampToEdge
+        descriptor.tAddressMode = .clampToEdge
+        descriptor.magFilter = .linear
+        descriptor.minFilter = .linear
+        descriptor.mipFilter = .linear
+
+        return device.makeSamplerState(descriptor: descriptor)
     }
     
     private func updateDynamicBufferState() {
@@ -366,6 +385,7 @@ class Renderer: NSObject, MTKViewDelegate {
                 renderEncoder.setFrontFacing(.counterClockwise)
                 renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
                 renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+                renderEncoder.setFragmentSamplerState(samplerState, index: 0)
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
                                                         indexCount: submesh.indexCount,

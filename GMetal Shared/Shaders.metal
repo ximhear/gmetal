@@ -115,13 +115,22 @@ vertex ColorInOut vertexShader2(Vertex in [[stage_in]],
 
 fragment float4 fragmentShader2(ColorInOut in [[stage_in]],
                                constant Uniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                               texture2d<half> colorMap     [[ texture(TextureIndexColor) ]])
+                               texture2d<half> colorMap     [[ texture(TextureIndexColor) ]],
+                                sampler colorSampler [[ sampler(0) ]])
 {
-    constexpr sampler colorSampler(mip_filter::linear,
-                                   mag_filter::linear,
-                                   min_filter::linear);
-    
     half4 colorSample   = colorMap.sample(colorSampler, in.texCoord.xy);
+    if (in.texCoord.x < 0 && in.texCoord.y < 0) {
+        return float4(1,0,0,1);
+    }
+    if (in.texCoord.x < 0 && in.texCoord.y > 1) {
+        return float4(0,1,0,1);
+    }
+    if (in.texCoord.x > 1 && in.texCoord.y < 0) {
+        return float4(0,0,1,1);
+    }
+    if (in.texCoord.x > 1 && in.texCoord.y > 1) {
+        return float4(1,0,1,1);
+    }
 //    float3 baseColor = float3(in.normal.x >= 0 ? in.normal.x : -in.normal.x,
 //                              in.normal.y >= 0 ? in.normal.y : -in.normal.y,
 //                              in.normal.z >= 0 ? in.normal.z : -in.normal.z);
