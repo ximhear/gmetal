@@ -183,7 +183,7 @@ class Renderer: NSObject, MTKViewDelegate {
         
         let metalAllocator = MTKMeshBufferAllocator(device: device)
         
-        guard let assetURL = Bundle.main.url(forResource: "itokawa",
+        guard let assetURL = Bundle.main.url(forResource: "vesta_two_hemi",
                                              withExtension: "stl") else {
           fatalError()
         }
@@ -258,7 +258,8 @@ class Renderer: NSObject, MTKViewDelegate {
         uniforms[0].projectionMatrix = projectionMatrix
 
         
-        let translateMatrix = float4x4(translation: [0, 0, Float(15.493 / 2.0)])
+//        let translateMatrix = float4x4(translation: [0, 0, Float(15.493 / 2.0)])
+        let translateMatrix = float4x4(translation: [0, 0, 0])
         let rotationMatrix1 = float4x4(rotationYXZ: [-rotation.x,
                                                     rotation.y,
                                                     0])
@@ -426,7 +427,8 @@ class Renderer: NSObject, MTKViewDelegate {
 //        }
     }
     
-    var target: float3 = [0, 0, 7.5]
+//    var target: float3 = [0, 0, 7.5]
+    var target: float3 = [0, 0, 25.5]
     var distance: Float = 0
     var rotation: float3 = [0, 0, 0]
 }
