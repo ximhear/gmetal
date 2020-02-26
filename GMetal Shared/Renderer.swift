@@ -26,6 +26,7 @@ class Renderer: NSObject, MTKViewDelegate {
     public let device: MTLDevice
     let commandQueue: MTLCommandQueue
     var dynamicUniformBuffer: MTLBuffer
+    var dynamicUniformBuffer1: MTLBuffer
     var pipelineState: MTLRenderPipelineState
     var pipelineState2: MTLRenderPipelineState
     var depthState: MTLDepthStencilState
@@ -39,7 +40,8 @@ class Renderer: NSObject, MTKViewDelegate {
     var uniformBufferIndex = 0
     
     var uniforms: UnsafeMutablePointer<Uniforms>
-    
+    var uniforms1: UnsafeMutablePointer<Uniforms>
+
     var projectionMatrix: matrix_float4x4 = matrix_float4x4()
     var rotationMatrix = float4x4.identity()
 
@@ -54,11 +56,15 @@ class Renderer: NSObject, MTKViewDelegate {
         
         guard let buffer = self.device.makeBuffer(length:uniformBufferSize, options:[MTLResourceOptions.storageModeShared]) else { return nil }
         dynamicUniformBuffer = buffer
-        
+        guard let buffer1 = self.device.makeBuffer(length:uniformBufferSize, options:[MTLResourceOptions.storageModeShared]) else { return nil }
+        dynamicUniformBuffer1 = buffer1
+
         self.dynamicUniformBuffer.label = "UniformBuffer"
+        self.dynamicUniformBuffer1.label = "UniformBuffer1"
         
         uniforms = UnsafeMutableRawPointer(dynamicUniformBuffer.contents()).bindMemory(to:Uniforms.self, capacity:1)
-        
+        uniforms1 = UnsafeMutableRawPointer(dynamicUniformBuffer1.contents()).bindMemory(to:Uniforms.self, capacity:1)
+
         metalKitView.depthStencilPixelFormat = MTLPixelFormat.depth32Float_stencil8
         metalKitView.colorPixelFormat = MTLPixelFormat.bgra8Unorm_srgb
         metalKitView.sampleCount = 1
@@ -242,7 +248,7 @@ class Renderer: NSObject, MTKViewDelegate {
         return device.makeSamplerState(descriptor: descriptor)
     }
     
-    private func updateDynamicBufferState() {
+private func updateDynamicBufferState() {
         /// Update the state of our uniform buffers before rendering
         
         uniformBufferIndex = (uniformBufferIndex + 1) % maxBuffersInFlight
@@ -250,12 +256,14 @@ class Renderer: NSObject, MTKViewDelegate {
         uniformBufferOffset = alignedUniformsSize * uniformBufferIndex
         
         uniforms = UnsafeMutableRawPointer(dynamicUniformBuffer.contents() + uniformBufferOffset).bindMemory(to:Uniforms.self, capacity:1)
+        uniforms1 = UnsafeMutableRawPointer(dynamicUniformBuffer1.contents() + uniformBufferOffset).bindMemory(to:Uniforms.self, capacity:1)
     }
     
-    private func updateGameState(zScale: Float = 1) {
+    private func updateGameState() {
         /// Update any game state before rendering
         
         uniforms[0].projectionMatrix = projectionMatrix
+        uniforms1[0].projectionMatrix = projectionMatrix
 
         
 //        let translateMatrix = float4x4(translation: [0, 0, Float(15.493 / 2.0)])
@@ -264,59 +272,22 @@ class Renderer: NSObject, MTKViewDelegate {
                                                     rotation.y,
                                                     0])
 
-//        var degreeX: Float = (-rotation.x).radiansToDegrees
-//        var degreeY: Float = (rotation.y).radiansToDegrees
-//        if (degreeY < 0) {
-//            let angle = (-degreeY).truncatingRemainder(dividingBy: 360)
-//            if (angle <= 180) {
-//                degreeY = -angle
-//            }
-//            else {
-//                degreeY = 360 - angle
-//            }
-//        }
-//        else {
-//            let angle = (degreeY).truncatingRemainder(dividingBy: 360)
-//            if (angle <= 180) {
-//                degreeY = angle
-//            }
-//            else {
-//                degreeY = angle - 360
-//            }
-//        }
-//        if (degreeX < 0) {
-//            let angle = (-degreeX).truncatingRemainder(dividingBy: 360)
-//            if (angle <= 180) {
-//                degreeX = -angle
-//            }
-//            else {
-//                degreeX = 360 - angle
-//            }
-//        }
-//        else {
-//            let angle = (degreeX).truncatingRemainder(dividingBy: 360)
-//            if (angle <= 180) {
-//                degreeX = angle
-//            }
-//            else {
-//                degreeX = angle - 360
-//            }
-//        }
-//        if (abs(degreeY) > abs(degreeX)) {
-//            rotationMatrix = float4x4(rotationX: radians_from_degrees(degreeX)) * float4x4(rotationY: radians_from_degrees(degreeY)) * rotationMatrix
-//        }
-//        else {
-//            rotationMatrix = float4x4(rotationY: radians_from_degrees(degreeY)) * float4x4(rotationX: radians_from_degrees(degreeX)) * rotationMatrix
-//        }
 
         rotationMatrix = rotationMatrix1 * rotationMatrix
-        let scaleTranslationMatrix = matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: zScale) * translateMatrix
+        let scaleTranslationMatrix = matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: 1) * translateMatrix
+        let scaleTranslationMatrix1 = matrix4x4_scale(1.0 / 12.0) * matrix4x4_scale(x: 1, y: 1, z: -1) * translateMatrix
         let modelMatrix = rotationMatrix * scaleTranslationMatrix
+        let modelMatrix1 = rotationMatrix * scaleTranslationMatrix1
         let viewMatrix = float4x4(translation: [target.x, target.y, target.z + distance])
         uniforms[0].modelMatrix = viewMatrix * modelMatrix
         uniforms[0].viewMatrix = float4x4.identity()
         uniforms[0].normalMatrix = modelMatrix.upperLeft
         uniforms[0].textureMatrix = projectionMatrix * viewMatrix * scaleTranslationMatrix
+        
+        uniforms1[0].modelMatrix = viewMatrix * modelMatrix1
+        uniforms1[0].viewMatrix = float4x4.identity()
+        uniforms1[0].normalMatrix = modelMatrix1.upperLeft
+        uniforms1[0].textureMatrix = projectionMatrix * viewMatrix * scaleTranslationMatrix1
     }
     
     func draw(in view: MTKView) {
@@ -339,7 +310,7 @@ class Renderer: NSObject, MTKViewDelegate {
             if let renderPassDescriptor = renderPassDescriptor, let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) {
                 
                 self.updateDynamicBufferState()
-                self.updateGameState(zScale: 1)
+                self.updateGameState()
                 
                 /// Final pass rendering code here
                 renderEncoder.label = "Primary Render Encoder"
@@ -380,12 +351,10 @@ class Renderer: NSObject, MTKViewDelegate {
                     
                 }
 
-                self.updateDynamicBufferState()
-                self.updateGameState(zScale: -1)
                 renderEncoder.setRenderPipelineState(pipelineState2)
                 renderEncoder.setFrontFacing(.counterClockwise)
-                renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
-                renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+                renderEncoder.setVertexBuffer(dynamicUniformBuffer1, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+                renderEncoder.setFragmentBuffer(dynamicUniformBuffer1, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
                 renderEncoder.setFragmentSamplerState(samplerState, index: 0)
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
