@@ -26,7 +26,6 @@ class Renderer: NSObject, MTKViewDelegate {
     public let device: MTLDevice
     let commandQueue: MTLCommandQueue
     var dynamicUniformBuffer: MTLBuffer
-    var dynamicUniformBuffer1: MTLBuffer
     var pipelineState: MTLRenderPipelineState
     var pipelineState2: MTLRenderPipelineState
     var depthState: MTLDepthStencilState
@@ -36,7 +35,8 @@ class Renderer: NSObject, MTKViewDelegate {
     let inFlightSemaphore = DispatchSemaphore(value: maxBuffersInFlight)
     
     var uniformBufferOffset = 0
-    
+    var uniformBufferOffset1 = 0
+
     var uniformBufferIndex = 0
     
     var uniforms: UnsafeMutablePointer<Uniforms>
@@ -52,18 +52,16 @@ class Renderer: NSObject, MTKViewDelegate {
         guard let queue = self.device.makeCommandQueue() else { return nil }
         self.commandQueue = queue
         
-        let uniformBufferSize = alignedUniformsSize * maxBuffersInFlight
+        let uniformBufferSize = alignedUniformsSize * maxBuffersInFlight * 2
         
         guard let buffer = self.device.makeBuffer(length:uniformBufferSize, options:[MTLResourceOptions.storageModeShared]) else { return nil }
         dynamicUniformBuffer = buffer
-        guard let buffer1 = self.device.makeBuffer(length:uniformBufferSize, options:[MTLResourceOptions.storageModeShared]) else { return nil }
-        dynamicUniformBuffer1 = buffer1
 
         self.dynamicUniformBuffer.label = "UniformBuffer"
-        self.dynamicUniformBuffer1.label = "UniformBuffer1"
-        
+
         uniforms = UnsafeMutableRawPointer(dynamicUniformBuffer.contents()).bindMemory(to:Uniforms.self, capacity:1)
-        uniforms1 = UnsafeMutableRawPointer(dynamicUniformBuffer1.contents()).bindMemory(to:Uniforms.self, capacity:1)
+        uniformBufferOffset1 = uniformBufferOffset + alignedUniformsSize * maxBuffersInFlight
+        uniforms1 = UnsafeMutableRawPointer(dynamicUniformBuffer.contents() + uniformBufferOffset1).bindMemory(to:Uniforms.self, capacity:1)
 
         metalKitView.depthStencilPixelFormat = MTLPixelFormat.depth32Float_stencil8
         metalKitView.colorPixelFormat = MTLPixelFormat.bgra8Unorm_srgb
@@ -254,9 +252,10 @@ private func updateDynamicBufferState() {
         uniformBufferIndex = (uniformBufferIndex + 1) % maxBuffersInFlight
         
         uniformBufferOffset = alignedUniformsSize * uniformBufferIndex
-        
+        uniformBufferOffset1 = uniformBufferOffset + alignedUniformsSize * maxBuffersInFlight
+
         uniforms = UnsafeMutableRawPointer(dynamicUniformBuffer.contents() + uniformBufferOffset).bindMemory(to:Uniforms.self, capacity:1)
-        uniforms1 = UnsafeMutableRawPointer(dynamicUniformBuffer1.contents() + uniformBufferOffset).bindMemory(to:Uniforms.self, capacity:1)
+        uniforms1 = UnsafeMutableRawPointer(dynamicUniformBuffer.contents() + uniformBufferOffset1).bindMemory(to:Uniforms.self, capacity:1)
     }
     
     private func updateGameState() {
@@ -353,8 +352,8 @@ private func updateDynamicBufferState() {
 
                 renderEncoder.setRenderPipelineState(pipelineState2)
                 renderEncoder.setFrontFacing(.counterClockwise)
-                renderEncoder.setVertexBuffer(dynamicUniformBuffer1, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
-                renderEncoder.setFragmentBuffer(dynamicUniformBuffer1, offset:uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+                renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset:uniformBufferOffset1, index: BufferIndex.uniforms.rawValue)
+                renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset:uniformBufferOffset1, index: BufferIndex.uniforms.rawValue)
                 renderEncoder.setFragmentSamplerState(samplerState, index: 0)
                 for submesh in mesh.submeshes {
                     renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
