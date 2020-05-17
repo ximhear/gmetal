@@ -246,7 +246,7 @@ class Renderer: NSObject, MTKViewDelegate {
         return device.makeSamplerState(descriptor: descriptor)
     }
     
-private func updateDynamicBufferState() {
+    private func updateDynamicBufferState() {
         /// Update the state of our uniform buffers before rendering
         
         uniformBufferIndex = (uniformBufferIndex + 1) % maxBuffersInFlight
